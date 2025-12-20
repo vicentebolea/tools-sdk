@@ -60,22 +60,19 @@ setup:frontier-gcc:
   artifacts:
     expire_in: 24 hours
     when: always
-    paths:
-      - build/
 
 build:frontier-gcc:
   extends: .frontier-common
   stage: build
   tags: [ shell ]
   before_script:
+    - *checkout_commit
     - *load_modules
   script:
     - bash scripts/ci/gitlab-ci/run.sh build
   artifacts:
     expire_in: 24 hours
     when: always
-    paths:
-      - build/
   needs:
     - setup:frontier-gcc
   dependencies:
